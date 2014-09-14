@@ -81,9 +81,10 @@ public class MainActivity extends Activity {
     	    	  TextView p1_text = (TextView)findViewById(R.id.information_feedback);
     	    	  DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     	      		Date date = new Date();
+    	      	int barcode = Integer.parseInt((data.getExtras().get("code")).toString());
     	    	  p1_text.setText("Prepare yourself for the infodrops:\n" +
     	      			"\nDate: " + dateFormat.format(date) +
-    	      			"\nBarcode: " + data.getExtras().get("code"));
+    	      			"\nBarcode: " + barcode);
     	      }
     	      break;
     	    } 
