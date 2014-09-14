@@ -23,8 +23,8 @@
         android:layout_below="@+id/textView1"
         android:layout_marginTop="34dp"
         android:minWidth="200dp"
-        android:onClick="sendMessage"
-        android:text="@string/button1" />
+        android:onClick="buttonPress"
+        android:text="@string/scan" />
 
     <TextView
         android:id="@+id/information_feedback"
@@ -35,5 +35,21 @@
         android:layout_marginTop="42dp"
         android:text="@string/noclick"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/scan_format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button1"
+        android:layout_centerHorizontal="true"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/scan_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scan_format"
+        android:layout_centerHorizontal="true"
+        android:textIsSelectable="true" />
 
 </RelativeLayout>

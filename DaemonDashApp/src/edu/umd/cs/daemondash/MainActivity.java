@@ -1,8 +1,13 @@
 package edu.umd.cs.daemondash;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,7 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.os.Build;
+
+import tw.com.quickmark.sdk.demo.*;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 
 
@@ -41,6 +51,26 @@ public class MainActivity extends Activity {
     	Button p1_button = (Button)findViewById(R.id.button1);
     	pressed_ct++;
     	p1_button.setText("Clicked! " + pressed_ct);
+    	TextView p1_text = (TextView)findViewById(R.id.information_feedback);
+    	//grab date/time objects
+    	//grab gps stuff?
+    	p1_text.setText("Prepare yourself for some infodrops:");
+    }
+    
+    public void buttonPress(View view) {
+    	Button p1_button = (Button)findViewById(R.id.button1);
+    	pressed_ct++;
+    	p1_button.setText("Clicked! " + pressed_ct);
+    	TextView p1_text = (TextView)findViewById(R.id.information_feedback);
+    	//grab date/time objects
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	Date date = new Date();
+    	//grab gps stuff?	
+    	p1_text.setText("Prepare yourself for the infodrops:\n" +
+    			"\nDate: " + dateFormat.format(date));
+    	Intent intent = new Intent(this, CaptureActivity.class);
+    	startActivity(intent);
+    	
     }
 
     @Override
