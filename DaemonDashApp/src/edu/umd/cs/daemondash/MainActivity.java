@@ -9,12 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.os.Build;
 
 
 
 public class MainActivity extends Activity {
 
+	public int pressed_ct = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,13 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+    
+    public void sendMessage(View view) {
+        // Do something in response to button click
+    	Button p1_button = (Button)findViewById(R.id.button1);
+    	pressed_ct++;
+    	p1_button.setText("Clicked! " + pressed_ct);
     }
 
     @Override
