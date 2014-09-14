@@ -61,17 +61,34 @@ public class MainActivity extends Activity {
     	Button p1_button = (Button)findViewById(R.id.button1);
     	pressed_ct++;
     	p1_button.setText("Clicked! " + pressed_ct);
-    	TextView p1_text = (TextView)findViewById(R.id.information_feedback);
+    	
     	//grab date/time objects
-    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    	Date date = new Date();
+    	
     	//grab gps stuff?	
-    	p1_text.setText("Prepare yourself for the infodrops:\n" +
-    			"\nDate: " + dateFormat.format(date));
+    	
     	Intent intent = new Intent(this, CaptureActivity.class);
-    	startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivityForResult(intent, 90);
     	
     }
+    
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	  super.onActivityResult(requestCode, resultCode, data);
+    	  switch(requestCode) {
+    	    case (90) : {
+    	      if (resultCode == Activity.RESULT_OK) {
+    	        // TODO Extract the data returned from the child Activity.
+    	    	  TextView p1_text = (TextView)findViewById(R.id.information_feedback);
+    	    	  DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	      		Date date = new Date();
+    	    	  p1_text.setText("Prepare yourself for the infodrops:\n" +
+    	      			"\nDate: " + dateFormat.format(date) +
+    	      			"\nBarcode: " + data.getExtras().get("code"));
+    	      }
+    	      break;
+    	    } 
+    	  }
+    	}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -50,6 +50,7 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	private ViewfinderView viewfinderView;
 	private boolean hasSurface;
 	private TextView fmtText;
+	private String result = "";
 	
 	// Decoder
 	private CaptureActivityHandler handler;
@@ -185,8 +186,6 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	  }
 	
 	public void handleDecode(Result rawResult){
-		playVibrate();
-		
 		/**
 		 * Result :Encapsulates the result of decoding a barcode within an image.
 		 * 
@@ -208,11 +207,21 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 		 */
 		
 		// Display the result
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.app_name));
-        builder.setMessage(rawResult.getBarcodeFormat().getName() + "---" + rawResult.getText());
-        builder.setNegativeButton("ok", okListener);
-        builder.show();
+        if(rawResult.getText().indexOf('*') == -1){
+        	playVibrate();
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(getString(R.string.app_name));
+			builder.setMessage(rawResult.getBarcodeFormat().getName() + "---"
+					+ rawResult.getText());
+			result = rawResult.getText();
+			builder.setNegativeButton("ok", okListener);
+
+			builder.show();
+        }else{
+        	if (handler != null) {
+	            handler.sendEmptyMessage(R.id.restart_preview);
+	        }
+        }
 		
 		
 	}
@@ -220,9 +229,16 @@ public final class CaptureActivity extends Activity implements SurfaceHolder.Cal
 	private final DialogInterface.OnClickListener okListener =
 	      new DialogInterface.OnClickListener() {
 	    public void onClick(DialogInterface dialogInterface, int i) {
-	    	if (handler != null) {
-	            handler.sendEmptyMessage(R.id.restart_preview);
-	          }
+//	    	if (handler != null) {
+//	            handler.sendEmptyMessage(R.id.restart_preview);
+//	        }
+
+
+	    	//go back to main class
+	    	Intent resultIntent = new Intent();
+	    	resultIntent.putExtra("code", result);
+	    	setResult(Activity.RESULT_OK, resultIntent);
+	    	finish();
 	    }
 	  };
 	  
